@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -13,7 +14,27 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+
+        $query = Project::query();
+        
+        $sortFeild = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "asc");
+        
+        if(request("name")){
+            $query->where("name","like","%".request("name")."%");
+        }
+
+        if(request("status")){
+            $query->where("status",request("status"));
+        }
+        
+        $projects = $query->orderBy($sortFeild, $sortDirection)->paginate(10)->onEachSide(1);
+        
+        
+        return inertia("Project/Index", [
+            "projects" => ProjectResource::collection($projects),
+            'queryParams' => request()->query() ?: null,
+        ]);
     }
 
     /**
