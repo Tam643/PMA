@@ -1,17 +1,16 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
-import Pagination from '@/Components/Pagination';
+import { Head, Link, router } from '@inertiajs/react';
 import React from 'react';
-import ProjectTable from './Components/ProjectTable';
+import Pagination from '@/Components/Pagination';
+import TaskTable from './Components/TaskTable';
 
 export default function Index({
     auth,
-    projects,
+    tasks,
     queryParams = null
 }) {
     queryParams = queryParams || {};
-    const title = "Project";
-
+    const title = "Task";
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -23,11 +22,11 @@ export default function Index({
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <ProjectTable 
+                            <TaskTable 
                                 queryParams={queryParams}
-                                projects={projects}
+                                tasks={tasks}
                             />
-                            <Pagination links={projects.meta.links} />
+                            <Pagination links={tasks.meta.links} />
                         </div>
                     </div>
                 </div>

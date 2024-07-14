@@ -19,7 +19,7 @@ class TaskFactory extends Factory
         return [
             "name" => fake()->sentence(),
             "description" => fake()->realText(),
-            "status" => fake()->randomElement(['pending', 'in_progess', 'completed']),
+            "status" => fake()->randomElement(['pending', 'in_progress', 'completed']),
             "priority" => fake()->randomElement(['low', 'medium', 'high']),
             "image_path" => fake()->imageUrl(),
             "assigned_user_id" => 1,
